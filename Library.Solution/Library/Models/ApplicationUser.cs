@@ -4,6 +4,6 @@ namespace Library.Models
 {
   public class ApplicationUser : IdentityUser
   {
-    public string Type { get; set; } // Librarian OR Patron
+    public bool IsLibrarian { get; set; }
   }
 }
