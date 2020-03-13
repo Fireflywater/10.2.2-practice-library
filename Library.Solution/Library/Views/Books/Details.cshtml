@@ -8,29 +8,29 @@
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
-@* @if(@Model.Categories.Count == 0)
+@if(@Model.Authors.Count == 0)
 {
-  <p>This item does not belong to any categories</p>
+  <p>This Book does not belong to any Authors</p>
 }
 else
 {
-  <h4>Categories the item belongs to:</h4>
+  <h4>Authors the Book belongs to:</h4>
   <ul>
 
     <ul>
-    @foreach(var join in Model.Categories)
+    @foreach(var join in Model.Authors)
     {
-      <li>@join.Category.Name</li>
-      @using (Html.BeginForm("DeleteCategory", "Items"))
+      <li>@join.Author.Name</li>
+      @using (Html.BeginForm("DeleteAuthor", "Books"))
       {
-        @Html.Hidden("joinId", @join.CategoryItemId)
+        @Html.Hidden("joinId", @join.BookAuthorId)
         <input type="submit" value="Delete"/>
       }
     }
     </ul>
   </ul>
-}*@
+}
 
 <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</p>
-@*<p>@Html.ActionLink("Add a Category", "AddCategory", new { id = Model.ItemId })</p>*@
+<p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
