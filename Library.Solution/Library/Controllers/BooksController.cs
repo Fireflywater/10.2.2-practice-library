@@ -42,5 +42,29 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult Details(int id)
+    {
+      var thisBook = _db.Books
+        //.Include(item => item.Categories)
+        //.ThenInclude(join => join.Category)
+        .FirstOrDefault(book => book.BookId == id);
+      return View(thisBook);
+    }
+
+    public ActionResult Edit(int id)
+    {
+      var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
+      //ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
+      return View(thisBook);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Book book)
+    {
+      _db.Entry(book).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
