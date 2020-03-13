@@ -2,9 +2,9 @@
   Layout = "_Layout";
 }
 
-@model Library.Models.Book
+@model Library.Models.Author
 
-<h2>Item Details</h2>
+<h2>Author Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
@@ -31,6 +31,6 @@ else
   </ul>
 }*@
 
-<p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
-<p>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId })</p>
+<p>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId })</p>
 @*<p>@Html.ActionLink("Add a Category", "AddCategory", new { id = Model.ItemId })</p>*@
