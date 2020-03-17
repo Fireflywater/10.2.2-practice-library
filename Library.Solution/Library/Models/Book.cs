@@ -6,6 +6,7 @@ namespace Library.Models
   {
     public int BookId { get; set; }
     public string Name { get; set; }
+    public int Out { get; set; }
 
     public virtual ICollection<Checkout> CheckoutHistory { get;}
     public virtual ICollection<BookAuthor> Authors { get;}

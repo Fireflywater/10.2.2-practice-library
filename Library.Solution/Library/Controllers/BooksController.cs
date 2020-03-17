@@ -107,5 +107,16 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [HttpPost]
+    public ActionResult CreateCheckout(int bookId)
+    {
+      var thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
+      //thisBook.Out = 1;
+      _db.Entry(thisBook).Property(book => book.Out).CurrentValue = 1;
+      _db.Entry(thisBook).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
