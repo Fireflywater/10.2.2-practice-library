@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -48,6 +49,7 @@ namespace Library.Controllers
       var thisBook = _db.Books
         .Include(book => book.Authors)
         .ThenInclude(join => join.Author)
+        .Include(book => book.CheckoutHistory)
         .FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
     }
@@ -111,9 +113,34 @@ namespace Library.Controllers
     [HttpPost]
     public ActionResult CreateCheckout(int bookId)
     {
-      var thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
-      //thisBook.Out = 1;
+      var thisBook = _db.Books.Include(book => book.CheckoutHistory).FirstOrDefault(book => book.BookId == bookId);
+      foreach(Checkout checkout in thisBook.CheckoutHistory)
+      {
+        checkout.Active = false;
+        _db.Entry(checkout).State = EntityState.Modified;
+      }
       _db.Entry(thisBook).Property(book => book.Out).CurrentValue = 1;
+      _db.Entry(thisBook).State = EntityState.Modified;
+      _db.Checkouts.Add( new Checkout() {
+        DateIn = DateTime.Now,
+        DateDue = DateTime.Now.Add(new System.TimeSpan(0, 0, 0, 10)), // 14, 0, 0, 0 = 2 weeks
+        Book = thisBook,
+        Active = true
+      });
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult ReturnCheckout(int bookId)
+    {
+      var thisBook = _db.Books.Include(book => book.CheckoutHistory).FirstOrDefault(book => book.BookId == bookId);
+      foreach(Checkout checkout in thisBook.CheckoutHistory)
+      {
+        checkout.Active = false;
+        _db.Entry(checkout).State = EntityState.Modified;
+      }
+      _db.Entry(thisBook).Property(book => book.Out).CurrentValue = 0;
       _db.Entry(thisBook).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");

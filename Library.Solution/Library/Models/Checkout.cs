@@ -12,14 +12,14 @@ namespace Library.Models
     public virtual Book Book { get; set; }
     public virtual ApplicationUser User { get; set; }
 
-    /*public bool OverDue() {
-      if (Now() IsSomehowAfter DateDue) {
+    public bool OverDue() {
+      if (DateTime.Now > DateDue) {
         return true;
       }
       else
       {
         return false;
       }
-    }*/
+    }
   }
 }

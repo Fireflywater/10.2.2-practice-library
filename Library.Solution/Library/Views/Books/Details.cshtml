@@ -2,6 +2,7 @@
   Layout = "_Layout";
 }
 
+@using Library.Models
 @model Library.Models.Book
 
 <h2>Item Details</h2>
@@ -29,6 +30,11 @@ else
     }
     </ul>
   </ul>
+}
+
+@foreach(Checkout checkout in Model.CheckoutHistory)
+{
+  <li>@checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
 }
 
 <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>

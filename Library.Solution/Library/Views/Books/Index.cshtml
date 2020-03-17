@@ -30,6 +30,12 @@
 @foreach (Book book in Model)
 {
   @if (book.Out != 0) {
-    <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })</li>
+    <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
+    @using (Html.BeginForm("ReturnCheckout", "Books"))
+    {
+      @Html.Hidden("bookId", @book.BookId)
+      <input type="submit" value="Return"/>
+    }
+    </li>
   }
 }
