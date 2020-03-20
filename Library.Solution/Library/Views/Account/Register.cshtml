@@ -19,5 +19,8 @@
     @Html.LabelFor(user=> user.ConfirmPassword)
     @Html.PasswordFor(user=> user.ConfirmPassword)
 
+    @Html.LabelFor(user=> user.IsLibrarian)
+    @Html.RadioButtonFor(user => user.IsLibrarian, true)
+
     <input type="submit" value="Register" />
 }
