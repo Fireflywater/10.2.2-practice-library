@@ -24,14 +24,20 @@ namespace Library.Controllers
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
       List<Author> model = _db.Authors.ToList();
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(model);
     }
 
-    public ActionResult Create()
+    public async Task<ActionResult> Create()
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View();
     }
 
@@ -43,18 +49,24 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult Details(int id)
+    public async Task<ActionResult> Details(int id)
     {
       var thisAuthor = _db.Authors
         .Include(author => author.Books)
         .ThenInclude(join => join.Book)
         .FirstOrDefault(author => author.AuthorId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisAuthor);
     }
 
-    public ActionResult Edit(int id)
+    public async Task<ActionResult> Edit(int id)
     {
       var thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisAuthor);
     }
 
@@ -66,9 +78,12 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
       var thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisAuthor);
     }
 
@@ -81,10 +96,13 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddBook(int id)
+    public async Task<ActionResult> AddBook(int id)
     {
       var thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
       ViewBag.BookId = new SelectList(_db.Books, "BookId", "Name");
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisAuthor);
     }
 
