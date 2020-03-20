@@ -25,14 +25,21 @@ namespace Library.Controllers
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      //var userItems = _db.Items.Where(entry => entry.User.Id == currentUser.Id);
       List<Book> model = _db.Books.ToList();
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(model);
     }
 
-    public ActionResult Create()
+    public async Task<ActionResult> Create()
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View();
     }
 
@@ -44,19 +51,25 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult Details(int id)
+    public async Task<ActionResult> Details(int id)
     {
       var thisBook = _db.Books
         .Include(book => book.Authors)
         .ThenInclude(join => join.Author)
         .Include(book => book.CheckoutHistory)
         .FirstOrDefault(book => book.BookId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisBook);
     }
 
-    public ActionResult Edit(int id)
+    public async Task<ActionResult> Edit(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisBook);
     }
 
@@ -68,9 +81,12 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisBook);
     }
 
@@ -83,10 +99,13 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddAuthor(int id)
+    public async Task<ActionResult> AddAuthor(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(thisBook);
     }
 

@@ -4,16 +4,21 @@
 
 @model Library.Models.Book
 
-<h2>Add an Author</h2>
-
-<h4>Add an Author to this Book: @Html.DisplayFor(model => model.Name)</h4>
-
-@using (Html.BeginForm())
+@if (ViewBag.IsLibrarian == true)
 {
-    @Html.HiddenFor(model => model.BookId)
+  <h2>Add an Author</h2>
 
-    @Html.Label("Select Author")
-    @Html.DropDownList("AuthorId")
+  <h4>Add an Author to this Book: @Html.DisplayFor(model => model.Name)</h4>
 
-    <input type="submit" value="Save" />
+  @using (Html.BeginForm())
+  {
+      @Html.HiddenFor(model => model.BookId)
+
+      @Html.Label("Select Author")
+      @Html.DropDownList("AuthorId")
+
+      <input type="submit" value="Save" />
+  }
+} else {
+  <h2>Access Denied!</h2>
 }

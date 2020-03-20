@@ -3,39 +3,40 @@
 }
 
 @using Library.Models;
-@model List<Library.Models.Book>;
+@model IEnumerable<Library.Models.Book>;
 
-@if (@Model.Count == 0)
+<h1>Books for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
+
+
+@if (Model.Any())
 {
-  <h3>No books</h3>
-}
 
-<h3>Books IN</h3>
+  <h3>Books IN</h3>
 
-@foreach (Book book in Model)
-{
-  @if (book.Out == 0) {
-    <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
-    @using (Html.BeginForm("CreateCheckout", "Books"))
-    {
-      @Html.Hidden("bookId", @book.BookId)
-      <input type="submit" value="Check"/>
+  @foreach (Book book in Model)
+  {
+    @if (book.Out == 0) {
+      <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
+      @using (Html.BeginForm("CreateCheckout", "Books"))
+      {
+        @Html.Hidden("bookId", @book.BookId)
+        <input type="submit" value="Check"/>
+      }
+      </li>
     }
-    </li>
   }
-}
+  <h3>Books OUT</h3>
 
-<h3>Books OUT</h3>
-
-@foreach (Book book in Model)
-{
-  @if (book.Out != 0) {
-    <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
-    @using (Html.BeginForm("ReturnCheckout", "Books"))
-    {
-      @Html.Hidden("bookId", @book.BookId)
-      <input type="submit" value="Return"/>
+  @foreach (Book book in Model)
+  {
+    @if (book.Out != 0) {
+      <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
+      @using (Html.BeginForm("ReturnCheckout", "Books"))
+      {
+        @Html.Hidden("bookId", @book.BookId)
+        <input type="submit" value="Return"/>
+      }
+      </li>
     }
-    </li>
   }
 }
