@@ -4,10 +4,18 @@
 
 @model Library.Models.Book
 
-<h2>Are you sure you want to delete this Book?</h2>
-
-@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)
-@using (Html.BeginForm())
+@if (ViewBag.IsLibrarian == true)
 {
+  <h2>Are you sure you want to delete this Book?</h2>
+
+  @Html.DisplayNameFor(model => model.Name)
+  @Html.DisplayFor(model => model.Name)
+
+  @* @Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(model => model.Name) THIS LINE IS BROKEN *@
+  @using (Html.BeginForm())
+  {
     <input type="submit" value="Delete" />
+  }
+} else {
+  <h2>Access Denied!</h2>
 }

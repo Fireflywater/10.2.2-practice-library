@@ -12,12 +12,12 @@
 
   @using (Html.BeginForm())
   {
-      @Html.HiddenFor(model => model.BookId)
+    @Html.HiddenFor(model => model.BookId)
 
-      @Html.Label("Select Author")
-      @Html.DropDownList("AuthorId")
+    @Html.Label("Select Author")
+    @Html.DropDownList("AuthorId")
 
-      <input type="submit" value="Save" />
+    <input type="submit" value="Save" />
   }
 } else {
   <h2>Access Denied!</h2>

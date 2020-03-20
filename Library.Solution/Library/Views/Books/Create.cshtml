@@ -4,10 +4,15 @@
 
 @model Library.Models.Book
 
-<h4>Add a new Book</h4>
-@using (Html.BeginForm())
+@if (ViewBag.IsLibrarian == true)
 {
+  <h4>Add a new Book</h4>
+  @using (Html.BeginForm())
+  {
     @Html.LabelFor(model => model.Name)
     @Html.TextBoxFor(model => model.Name)
     <input type="submit" value="Add new Book" />
+  }
+} else {
+  <h2>Access Denied!</h2>
 }
