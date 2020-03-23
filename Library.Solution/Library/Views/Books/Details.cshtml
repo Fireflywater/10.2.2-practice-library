@@ -35,7 +35,7 @@
 
   @foreach(Checkout checkout in Model.CheckoutHistory)
   {
-    <li>@checkout.User.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    <li>@checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
   }
 
   <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
@@ -65,6 +65,6 @@
 
   @foreach(Checkout checkout in Model.CheckoutHistory)
   {
-    <li>@checkout.User.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    <li>@checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
   }
 }
