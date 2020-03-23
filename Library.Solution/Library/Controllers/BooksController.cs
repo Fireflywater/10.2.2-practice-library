@@ -32,7 +32,7 @@ namespace Library.Controllers
       //var userItems = _db.Items.Where(entry => entry.User.Id == currentUser.Id);
       List<Book> model = _db.Books
         .Include(book => book.CheckoutHistory)
-        //.Where(book => book.CheckoutHistory.Any(i => i.Active == true))
+        .Where(book => (book.Out == 0 || book.CheckoutHistory.Any(i => i.User.Id == currentUser.Id)))
         .ToList();
       ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(model);

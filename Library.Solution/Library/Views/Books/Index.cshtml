@@ -54,7 +54,8 @@
 
     @foreach (Book book in Model)
     {
-      @if ((book.Out != 0) && (book.CheckoutHistory.Where(i => i.Active == true).FirstOrDefault().User?.UserName == User.Identity.Name))
+      @*@if ((book.Out != 0) && (book.CheckoutHistory.Where(i => i.Active == true).FirstOrDefault().User?.UserName == User.Identity.Name))*@
+      @if (book.Out != 0)
       {
         <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
         @using (Html.BeginForm("ReturnCheckout", "Books"))
