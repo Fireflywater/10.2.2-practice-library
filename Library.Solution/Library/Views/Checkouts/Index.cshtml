@@ -16,7 +16,7 @@
   @foreach (Checkout checkout in Model)
   {
     @if (checkout.Active == true) {
-      <li>@checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+      <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
     }
   }
   <h3>Checkout History</h3>
@@ -24,7 +24,7 @@
   @foreach (Checkout checkout in Model)
   {
     @if (checkout.Active == false) {
-      <li>@checkout.Book.Name // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+      <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
     }
   }
 }

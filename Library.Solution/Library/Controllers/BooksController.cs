@@ -130,8 +130,10 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult CreateCheckout(int bookId)
+    public async Task<ActionResult> CreateCheckout(int bookId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
       var thisBook = _db.Books.Include(book => book.CheckoutHistory).FirstOrDefault(book => book.BookId == bookId);
       foreach(Checkout checkout in thisBook.CheckoutHistory)
       {
@@ -144,7 +146,8 @@ namespace Library.Controllers
         DateIn = DateTime.Now,
         DateDue = DateTime.Now.Add(new System.TimeSpan(0, 0, 0, 10)), // 14, 0, 0, 0 = 2 weeks
         Book = thisBook,
-        Active = true
+        Active = true,
+        User = currentUser
       });
       _db.SaveChanges();
       return RedirectToAction("Index");
