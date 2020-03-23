@@ -9,13 +9,14 @@
   <body>
     @RenderBody()
 
-    <p>@Html.ActionLink("Home", "Index", "Home")</p>
-    <p>@Html.ActionLink("Show all Books", "Index", "Books")</p>
-    <p>@Html.ActionLink("Make new Book", "Create", "Books")</p>
-    <p>@Html.ActionLink("Show all Authors", "Index", "Authors")</p>
-    <p>@Html.ActionLink("Make new Author", "Create", "Authors")</p>
-
-    
-    <p>@Html.ActionLink("See all Checkouts", "Index", "Checkouts")</p>
+    <div class="nav">
+    <div>@Html.ActionLink("Home", "Index", "Home")</div>
+    <div>@Html.ActionLink("Account Management", "Index", "Account")</div>
+    <div>@Html.ActionLink("Show all Books", "Index", "Books")</div>
+    <div>@Html.ActionLink("Make new Book", "Create", "Books")</div>
+    <div>@Html.ActionLink("Show all Authors", "Index", "Authors")</div>
+    <div>@Html.ActionLink("Make new Author", "Create", "Authors")</div>
+    <div>@Html.ActionLink("See all Checkouts", "Index", "Checkouts")</div>
+    </div>
   </body>
 </html>
