@@ -6,20 +6,18 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-
   <h2>Author Details</h2>
-  <hr />
+  <hr/>
   <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
   @if(@Model.Books.Count == 0)
   {
-    <p>This Author does not belong to any Books</p>
+    <p>This Author does not have any Books</p>
   }
   else
   {
-    <h4>Books the Author belongs to:</h4>
+    <h4>Books the Author has:</h4>
     <ul>
-
       <ul>
       @foreach(var join in Model.Books)
       {
@@ -38,7 +36,25 @@
   <p>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId })</p>
   <p>@Html.ActionLink("Add a Book", "AddBook", new { id = Model.AuthorId })</p>
 
+} else { 
+  <h2>Author Details</h2>
+  <hr/>
+  <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
-} else {
-<h2>Access Denied!</h2>
+  @if(@Model.Books.Count == 0)
+  {
+    <p>This Author does not have any Books</p>
+  }
+  else
+  {
+    <h4>Books the Author has:</h4>
+    <ul>
+      <ul>
+      @foreach(var join in Model.Books)
+      {
+        <li>@join.Book.Name</li>
+      }
+      </ul>
+    </ul>
+  }
 }

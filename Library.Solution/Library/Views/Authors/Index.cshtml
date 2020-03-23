@@ -7,8 +7,7 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-
-  <h1>Books</h1>
+  <h1>Authors</h1>
 
   @if (@Model.Count == 0)
   {
@@ -19,8 +18,16 @@
   {
     <li>@Html.ActionLink($"{author.Name}", "Details", new { id = author.AuthorId })</li>
   }
-
-
 } else {
-<h2>Access Denied!</h2>
+  <h1>Authors</h1>
+
+  @if (@Model.Count == 0)
+  {
+    <h3>No Authors</h3>
+  }
+
+  @foreach (Author author in Model)
+  {
+    <li>@Html.ActionLink($"{author.Name}", "Details", new { id = author.AuthorId })</li>
+  }
 }

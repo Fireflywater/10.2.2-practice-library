@@ -7,9 +7,7 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-
   <h1>Books for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
-
 
   @if (Model.Any())
   {
@@ -43,8 +41,39 @@
       }
     }
   }
-
-
 } else {
-<h2>Access Denied!</h2>
+  <h1>Books for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
+
+  @if (Model.Any())
+  {
+
+    <h3>Books IN</h3>
+
+    @foreach (Book book in Model)
+    {
+      @if (book.Out == 0) {
+        <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
+        @using (Html.BeginForm("CreateCheckout", "Books"))
+        {
+          @Html.Hidden("bookId", @book.BookId)
+          <input type="submit" value="Check"/>
+        }
+        </li>
+      }
+    }
+    <h3>Books OUT</h3>
+
+    @foreach (Book book in Model)
+    {
+      @if (book.Out != 0) {
+        <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
+        @using (Html.BeginForm("ReturnCheckout", "Books"))
+        {
+          @Html.Hidden("bookId", @book.BookId)
+          <input type="submit" value="Return"/>
+        }
+        </li>
+      }
+    }
+  }
 }

@@ -57,6 +57,7 @@ namespace Library.Controllers
         .Include(book => book.Authors)
         .ThenInclude(join => join.Author)
         .Include(book => book.CheckoutHistory)
+        .ThenInclude(checkout => checkout.User)
         .FirstOrDefault(book => book.BookId == id);
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
