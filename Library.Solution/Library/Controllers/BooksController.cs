@@ -30,7 +30,10 @@ namespace Library.Controllers
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
       //var userItems = _db.Items.Where(entry => entry.User.Id == currentUser.Id);
-      List<Book> model = _db.Books.ToList();
+      List<Book> model = _db.Books
+        .Include(book => book.CheckoutHistory)
+        //.Where(book => book.CheckoutHistory.Any(i => i.Active == true))
+        .ToList();
       ViewBag.IsLibrarian = currentUser.IsLibrarian;
       return View(model);
     }
