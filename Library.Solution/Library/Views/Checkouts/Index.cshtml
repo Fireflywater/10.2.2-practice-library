@@ -5,26 +5,35 @@
 @using Library.Models;
 @model IEnumerable<Library.Models.Checkout>;
 
-<h1>Checkouts for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
-
-
-@if (Model.Any())
+@if (ViewBag.IsLibrarian == true)
 {
 
-  <h3>Active Checkouts</h3>
+  <h1>Checkouts for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
 
-  @foreach (Checkout checkout in Model)
+
+  @if (Model.Any())
   {
-    @if (checkout.Active == true) {
-      <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+
+    <h3>Active Checkouts</h3>
+
+    @foreach (Checkout checkout in Model)
+    {
+      @if (checkout.Active == true) {
+        <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+      }
+    }
+
+    <h3>Checkout History</h3>
+
+    @foreach (Checkout checkout in Model)
+    {
+      @if (checkout.Active == false) {
+        <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+      }
     }
   }
-  <h3>Checkout History</h3>
 
-  @foreach (Checkout checkout in Model)
-  {
-    @if (checkout.Active == false) {
-      <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
-    }
-  }
+
+} else {
+<h2>Access Denied!</h2>
 }
