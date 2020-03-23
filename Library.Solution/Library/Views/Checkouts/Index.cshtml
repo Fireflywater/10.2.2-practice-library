@@ -1,0 +1,30 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models;
+@model IEnumerable<Library.Models.Checkout>;
+
+<h1>Checkouts for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
+
+
+@if (Model.Any())
+{
+
+  <h3>Active Checkouts</h3>
+
+  @foreach (Checkout checkout in Model)
+  {
+    @if (checkout.Active == true) {
+      <li>@checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    }
+  }
+  <h3>Checkout History</h3>
+
+  @foreach (Checkout checkout in Model)
+  {
+    @if (checkout.Active == false) {
+      <li>@checkout.Book.Name // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    }
+  }
+}
