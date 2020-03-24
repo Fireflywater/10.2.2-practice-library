@@ -7,64 +7,58 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-  <h2>Item Details</h2>
-  <hr/>
-  <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
-
+  <div class="tileheader"><h3>Details of Book: @Html.DisplayFor(model => model.Name)</h3></div>
   @if(@Model.Authors.Count == 0)
   {
-    <p>This Book does not belong to any Authors</p>
+    <div class="tileheader"><h3>This Book does not belong to any Authors</h3></div>
   }
   else
   {
-    <h4>Authors this Book belongs to:</h4>
-    <ul>
-      <ul>
+    <div class="tileheader"><h3>Authors this Book belongs to:</h3></div>
+    <div class="tile">
       @foreach(var join in Model.Authors)
       {
-        <li>@join.Author.Name</li>
-        @using (Html.BeginForm("DeleteAuthor", "Books"))
-        {
-          @Html.Hidden("joinId", @join.BookAuthorId)
-          <input type="submit" value="Delete"/>
-        }
+        <div>@join.Author.Name
+          @using (Html.BeginForm("DeleteAuthor", "Books"))
+          {
+            @Html.Hidden("joinId", @join.BookAuthorId)
+            <input type="submit" value="Delete"/>
+          }
+        </div>
       }
-      </ul>
-    </ul>
+    </div>
   }
-
-  @foreach(Checkout checkout in Model.CheckoutHistory)
-  {
-    <li>@checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
-  }
-
-  <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
-  <p>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</p>
-  <p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
+  <div class="tileheader"><ul>
+    @foreach(Checkout checkout in Model.CheckoutHistory)
+    {
+      <li>USER: @checkout.User?.UserName // IN: @checkout.DateIn // DUE: @checkout.DateDue // ACTIVE: @checkout.Active</li>
+    }
+  </ul></div>
+  <div class="tile">
+    <div>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</div>
+    <div>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</div>
+    <div>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</div>
+  </div>
 } else {
-  <h2>Item Details</h2>
-  <hr/>
-  <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
-
+  <div class="tileheader"><h3>Details of Book: @Html.DisplayFor(model => model.Name)</h3></div>
   @if(@Model.Authors.Count == 0)
   {
-    <p>This Book does not belong to any Authors</p>
+    <div class="tileheader"><h3>This Book does not belong to any Authors</h3></div>
   }
   else
   {
-    <h4>Authors this Book belongs to:</h4>
-    <ul>
-      <ul>
+    <div class="tileheader"><h3>Authors this Book belongs to:</h3></div>
+    <div class="tile">
       @foreach(var join in Model.Authors)
       {
-        <li>@join.Author.Name</li>
+        <div>@join.Author.Name</div>
       }
-      </ul>
-    </ul>
+    </div>
   }
-
-  @foreach(Checkout checkout in Model.CheckoutHistory)
-  {
-    <li>@checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
-  }
+  <div class="tileheader"><ul>
+    @foreach(Checkout checkout in Model.CheckoutHistory)
+    {
+      <li>IN: @checkout.DateIn // DUE: @checkout.DateDue // ACTIVE: @checkout.Active</li>
+    }
+  </ul></div>
 }

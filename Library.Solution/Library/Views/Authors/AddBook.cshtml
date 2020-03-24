@@ -6,19 +6,18 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-  <h2>Add a Book</h2>
+  <div class="tileheader"><h3>Add a Book to this Author: @Html.DisplayFor(model => model.Name)</h3></div>
+  <div class="tileheader">
+    @using (Html.BeginForm())
+    {
+      @Html.HiddenFor(model => model.AuthorId)
 
-  <h4>Add a Book to this Author: @Html.DisplayFor(model => model.Name)</h4>
+      @Html.Label("Select Book")
+      @Html.DropDownList("BookId")
 
-  @using (Html.BeginForm())
-  {
-    @Html.HiddenFor(model => model.AuthorId)
-
-    @Html.Label("Select Book")
-    @Html.DropDownList("BookId")
-
-    <input type="submit" value="Save" />
-  }
+      <input type="submit" value="Save" />
+    }
+  </div>
 } else {
-  <h2>Access Denied!</h2>
+  <div class="tileheader"><h2>Access Denied!</h2></div>
 }

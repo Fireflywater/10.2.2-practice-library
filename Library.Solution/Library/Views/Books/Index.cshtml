@@ -7,64 +7,60 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-  <h1>Books for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
-
   @if (Model.Any())
   {
-    <h3>Books IN</h3>
-
-    @foreach (Book book in Model)
-    {
-      @if (book.Out == 0) {
-        <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
-        </li>
+    <div class="tileheader"><h3>Books IN</h3></div>
+    <div class="tile">
+      @foreach (Book book in Model)
+      {
+        @if (book.Out == 0) {
+          <div><h4>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })</h4></div>
+        }
       }
-    }
-    <h3>Books OUT</h3>
-
-    @foreach (Book book in Model)
-    {
-      @if (book.Out != 0) {
-        <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
-        </li>
+    </div>
+    <div class="tileheader"><h3>Books OUT</h3></div>
+    <div class="tile">
+      @foreach (Book book in Model)
+      {
+        @if (book.Out != 0) {
+          <div><h4>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })</h4></div>
+        }
       }
-    }
+    </div>
   }
 } else {
-  <h1>Books for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
-
   @if (Model.Any())
   {
-
-    <h3>Books IN</h3>
-
-    @foreach (Book book in Model)
-    {
-      @if (book.Out == 0) {
-        <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
-        @using (Html.BeginForm("CreateCheckout", "Books"))
-        {
-          @Html.Hidden("bookId", @book.BookId)
-          <input type="submit" value="Check"/>
-        }
-        </li>
-      }
-    }
-    <h3>Books OUT</h3>
-
-    @foreach (Book book in Model)
-    {
-      @*@if ((book.Out != 0) && (book.CheckoutHistory.Where(i => i.Active == true).FirstOrDefault().User?.UserName == User.Identity.Name))*@
-      @if (book.Out != 0)
+    <div class="tileheader"><h3>Books IN</h3></div>
+    <div class="tile">
+      @foreach (Book book in Model)
       {
-        <li>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })
-        @using (Html.BeginForm("ReturnCheckout", "Books"))
-        {
-          @Html.Hidden("bookId", @book.BookId)
-          <input type="submit" value="Return"/>
+        @if (book.Out == 0) {
+          <div><h4>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })</h4>
+          @using (Html.BeginForm("CreateCheckout", "Books"))
+          {
+            @Html.Hidden("bookId", @book.BookId)
+            <input type="submit" value="Check"/>
+          }
+          </div>
         }
-        </li>
       }
-    }
+    </div>
+    <div class="tileheader"><h3>Books IN</h3></div>
+    <div class="tile">
+    @foreach (Book book in Model)
+      {
+        @if (book.Out != 0)
+        {
+          <div><h4>@Html.ActionLink($"{book.Name}", "Details", new { id = book.BookId })</h4>
+          @using (Html.BeginForm("ReturnCheckout", "Books"))
+          {
+            @Html.Hidden("bookId", @book.BookId)
+            <input type="submit" value="Return"/>
+          }
+          </div>
+        }
+      }
+    </div>
   }
 }

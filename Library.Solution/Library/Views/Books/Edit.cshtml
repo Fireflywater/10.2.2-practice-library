@@ -6,19 +6,18 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-  <h2>Edit</h2>
-
-  <h4>Edit this Book: @Html.DisplayFor(model => model.Name)</h4>
-
-  @using (Html.BeginForm())
-  {
+  <div class="tileheader"><h3>Edit this Book: @Html.DisplayFor(model => model.Name)</h3></div>
+  <div class="tileheader">
+    @using (Html.BeginForm())
+    {
       @Html.HiddenFor(model => model.BookId)
 
       @Html.LabelFor(model => model.Name)
       @Html.EditorFor(model => model.Name)
 
       <input type="submit" value="Save" />
-  }
+    }
+  </div>
 } else {
-  <h2>Access Denied!</h2>
+  <div class="tileheader"><h2>Access Denied!</h2></div>
 }

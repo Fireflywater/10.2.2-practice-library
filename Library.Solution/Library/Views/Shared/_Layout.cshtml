@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="~/css/styles.css">
   </head>
   <body>
+    <div class="tile">
+      <div>Welcome @User.Identity.Name!</div>
+      <div>@Html.ActionLink("Home", "Index", "Home")</div>
+      <div>@Html.ActionLink("Account Management", "Index", "Account")</div>
+    </div>
+
     @RenderBody()
 
-    <div class="nav">
-    <div>@Html.ActionLink("Home", "Index", "Home")</div>
-    <div>@Html.ActionLink("Account Management", "Index", "Account")</div>
-    <div>@Html.ActionLink("Show all Books", "Index", "Books")</div>
-    <div>@Html.ActionLink("Make new Book", "Create", "Books")</div>
-    <div>@Html.ActionLink("Show all Authors", "Index", "Authors")</div>
-    <div>@Html.ActionLink("Make new Author", "Create", "Authors")</div>
-    <div>@Html.ActionLink("See all Checkouts", "Index", "Checkouts")</div>
+    <div class="tileheader"><h3>Navigation</h3></div>
+    <div class="tile">
+      <div>@Html.ActionLink("Show all Books", "Index", "Books")</div>
+      <div>@Html.ActionLink("Make new Book", "Create", "Books")</div>
+      <div>@Html.ActionLink("Show all Authors", "Index", "Authors")</div>
+      <div>@Html.ActionLink("Make new Author", "Create", "Authors")</div>
+      <div>@Html.ActionLink("See all Checkouts", "Index", "Checkouts")</div>
     </div>
   </body>
 </html>

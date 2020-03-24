@@ -7,27 +7,27 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-  <h1>Authors</h1>
-
-  @if (@Model.Count == 0)
-  {
-    <h3>No Authors</h3>
-  }
-
-  @foreach (Author author in Model)
-  {
-    <li>@Html.ActionLink($"{author.Name}", "Details", new { id = author.AuthorId })</li>
-  }
+  <div class="tileheader"><h3>Authors</h3></div>
+  <div class="tile">
+    @if (@Model.Count == 0)
+    {
+      <div><h4>No Authors</h4></div>
+    }
+    @foreach (Author author in Model)
+    {
+      <div><h4>@Html.ActionLink($"{author.Name}", "Details", new { id = author.AuthorId })</h4></div>
+    }
+  </div>
 } else {
-  <h1>Authors</h1>
-
-  @if (@Model.Count == 0)
-  {
-    <h3>No Authors</h3>
-  }
-
-  @foreach (Author author in Model)
-  {
-    <li>@Html.ActionLink($"{author.Name}", "Details", new { id = author.AuthorId })</li>
-  }
+  <div class="tileheader"><h3>Authors</h3></div>
+  <div class="tile">
+    @if (@Model.Count == 0)
+    {
+      <div><h4>No Authors</h4></div>
+    }
+    @foreach (Author author in Model)
+    {
+      <div><h4>@Html.ActionLink($"{author.Name}", "Details", new { id = author.AuthorId })</h4></div>
+    }
+  </div>
 }

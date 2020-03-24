@@ -7,49 +7,47 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-  <h1>Checkouts for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
-
   @if (Model.Any())
   {
-    <h3>Active Checkouts</h3>
-
-    @foreach (Checkout checkout in Model)
-    {
-      @if (checkout.Active == true) {
-        <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    <div class="tileheader"><h3>Active Checkouts</h3></div>
+    <div class="tileheader"><ul>
+      @foreach (Checkout checkout in Model)
+      {
+        @if (checkout.Active == true) {
+          <li>@checkout.Book.Name // USER: @checkout.User?.UserName // IN: @checkout.DateIn // DUE: @checkout.DateDue // Overdue: @checkout.OverDue() </li>
+        }
       }
-    }
-
-    <h3>Checkout History</h3>
-
-    @foreach (Checkout checkout in Model)
-    {
-      @if (checkout.Active == false) {
-        <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    </ul></div>
+    <div class="tileheader"><h3>Checkout History</h3></div>
+    <div class="tileheader"><ul>
+      @foreach (Checkout checkout in Model)
+      {
+        @if (checkout.Active == false) {
+          <li>@checkout.Book.Name // USER: @checkout.User?.UserName // IN: @checkout.DateIn // DUE: @checkout.DateDue</li>
+        }
       }
-    }
+    </ul></div>
   }
 } else {
-  <h1>Checkouts for @User.Identity.Name / IsLibrarian: @ViewBag.IsLibrarian</h1>
-
   @if (Model.Any())
   {
-    <h3>Active Checkouts</h3>
-
-    @foreach (Checkout checkout in Model)
-    {
-      @if ((checkout.Active == true) && (checkout.User?.UserName == User.Identity.Name)) {
-        <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    <div class="tileheader"><h3>Active Checkouts</h3></div>
+    <div class="tileheader"><ul>
+      @foreach (Checkout checkout in Model)
+      {
+        @if ((checkout.Active == true) && (checkout.User?.UserName == User.Identity.Name)) {
+          <li>@checkout.Book.Name // IN: @checkout.DateIn // DUE: @checkout.DateDue // Overdue: @checkout.OverDue() </li>
+        }
       }
-    }
-
-    <h3>Checkout History</h3>
-
-    @foreach (Checkout checkout in Model)
-    {
-      @if ((checkout.Active == false) && (checkout.User?.UserName == User.Identity.Name)) {
-        <li>@checkout.Book.Name // @checkout.User?.UserName // @checkout.DateIn // @checkout.DateDue // Active: @checkout.Active // Overdue: @checkout.OverDue() </li>
+    </ul></div>
+    <div class="tileheader"><h3>Checkout History</h3></div>
+    <div class="tileheader"><ul>
+      @foreach (Checkout checkout in Model)
+      {
+        @if ((checkout.Active == false) && (checkout.User?.UserName == User.Identity.Name)) {
+          <li>@checkout.Book.Name // IN: @checkout.DateIn // DUE: @checkout.DateDue</li>
+        }
       }
-    }
+    </ul></div>
   }
 }

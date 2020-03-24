@@ -6,55 +6,47 @@
 
 @if (ViewBag.IsLibrarian == true)
 {
-  <h2>Author Details</h2>
-  <hr/>
-  <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
-
+  <div class="tileheader"><h3>Details of Author: @Html.DisplayFor(model => model.Name)</h3></div>
   @if(@Model.Books.Count == 0)
   {
-    <p>This Author does not have any Books</p>
+    <div class="tileheader"><h3>This Author does not have any Books</h3></div>
   }
   else
   {
-    <h4>Books the Author has:</h4>
-    <ul>
-      <ul>
+    <div class="tileheader"><h3>Books the Author has:</h3></div>
+    <div class="tile">
       @foreach(var join in Model.Books)
       {
-        <li>@join.Book.Name</li>
-        @using (Html.BeginForm("DeleteBook", "Authors"))
-        {
-          @Html.Hidden("joinId", @join.BookAuthorId)
-          <input type="submit" value="Delete"/>
-        }
+        <div>@join.Book.Name
+          @using (Html.BeginForm("DeleteBook", "Authors"))
+          {
+            @Html.Hidden("joinId", @join.BookAuthorId)
+            <input type="submit" value="Delete"/>
+          }
+        </div>
       }
-      </ul>
-    </ul>
+    </div>
   }
+  <div class="tile">
+    <div>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId })</div>
+    <div>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId })</div>
+    <div>@Html.ActionLink("Add a Book", "AddBook", new { id = Model.AuthorId })</div>
+  </div>
 
-  <p>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId })</p>
-  <p>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId })</p>
-  <p>@Html.ActionLink("Add a Book", "AddBook", new { id = Model.AuthorId })</p>
-
-} else { 
-  <h2>Author Details</h2>
-  <hr/>
-  <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
-
+} else {
+  <div class="tileheader"><h3>Details of Author: @Html.DisplayFor(model => model.Name)</h3></div>
   @if(@Model.Books.Count == 0)
   {
-    <p>This Author does not have any Books</p>
+    <div class="tileheader"><h3>This Author does not have any Books</h3></div>
   }
   else
   {
-    <h4>Books the Author has:</h4>
-    <ul>
-      <ul>
+    <div class="tileheader"><h3>Books the Author has:</h3></div>
+    <div class="tile">
       @foreach(var join in Model.Books)
       {
-        <li>@join.Book.Name</li>
+        <div>@join.Book.Name</div>
       }
-      </ul>
-    </ul>
+    </div>
   }
 }
